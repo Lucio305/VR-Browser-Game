@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego VR para Oculus Quest 2</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@4.2.0/dist/aframe-physics-system.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+
+    <!-- Música de fondo -->
+    <audio id="background-music" src="https://www.youtube.com/watch?v=PSx_uvuCWRI" loop></audio>
+
+    <!-- Escena VR con A-Frame y WebXR -->
+    <a-scene vr-mode-ui="enabled: true" physics="gravity: -9.8;" embedded>
+        <!-- Piso verde (con una imagen de césped) -->
+        <a-plane position="0 0 -10" rotation="-90 0 0" width="100" height="100" src="https://th.bing.com/th/id/R.d489928b686980ff4388b9c3f99e07de?rik=igXbsbn5X0K%2bzw&riu=http%3a%2f%2fst2.depositphotos.com%2f2869437%2f5786%2fi%2f950%2fdepositphotos_57861777-stock-photo-green-grass-surface.jpg&ehk=AyDo5JhtyKhW3IBSv0aj3am61sclxkKM9%2fY9eLg1fyU%3d&risl=&pid=ImgRaw&r=0"></a-plane>
+
+        <!-- Cielo celeste -->
+        <a-sky color="#87CEEB"></a-sky>
+
+        <!-- Mesa -->
+        <a-box position="0 0.5 -3" width="2" height="0.1" depth="1" color="#8B4513" dynamic-body="mass: 20; friction: 0.5; restitution: 0.5;"></a-box>
+
+        <!-- Objeto interactivo encima de la mesa (esfera pequeña) -->
+        <a-sphere id="objeto" position="0 1 -3" radius="0.2" color="#FF0000" dynamic-body="mass: 1; friction: 0.5; restitution: 0.5;" class="clickable"></a-sphere>
+
+        <!-- Más objetos interactivos -->
+        <a-box id="caja" position="2 0.5 -3" width="0.5" height="0.5" depth="0.5" color="#0000FF" dynamic-body="mass: 1; friction: 0.5; restitution: 0.5;" class="clickable"></a-box>
+        <a-sphere id="esfera" position="-2 0.5 -3" radius="0.3" color="#FFFF00" dynamic-body="mass: 1; friction: 0.5; restitution: 0.5;" class="clickable"></a-sphere>
+
+        <!-- Cámara para VR (Oculus Quest 2) -->
+        <a-camera position="0 1.6 0" vr-mode-ui="enabled: true">
+            <!-- Manos del controlador Oculus -->
+            <a-entity oculus-touch-controls="hand: left" raycaster="objects: .clickable" line="color: red;"></a-entity>
+            <a-entity oculus-touch-controls="hand: right" raycaster="objects: .clickable" line="color: blue;"></a-entity>
+        </a-camera>
+    </a-scene>
+
+    <script>
+        // Música y control de reproducción
+        const music = document.getElementById('background-music');
+        
+        // Reproducir la música
+        music.play();
+    </script>
+</body>
+</html>
